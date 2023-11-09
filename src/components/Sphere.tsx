@@ -10,10 +10,10 @@ import { useBeforeRender, useScene } from "babylonjs-hook";
 import React, { useRef, useEffect } from "react";
 
 type SphereProps = {
-  position: Vector3 | undefined;
+  color: string;
 };
 
-export const Sphere: React.FC = () => {
+export const Sphere: React.FC<SphereProps> = (props) => {
   const scene = useScene();
 
   useEffect(() => {
@@ -25,14 +25,14 @@ export const Sphere: React.FC = () => {
       );
 
       const sphereMat = new StandardMaterial("sphereMat", scene);
-      sphereMat.diffuseColor = Color3.Red();
+      sphereMat.diffuseColor = Color3.FromHexString(props.color);
       sphere.material = sphereMat;
 
       return () => {
         sphere?.dispose();
       };
     }
-  }, [scene]);
+  }, [scene, props]);
 
   return null;
 };

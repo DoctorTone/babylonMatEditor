@@ -33,15 +33,11 @@ const onSceneReady = (scene: Scene) => {
 };
 
 export default () => {
-  const [xyPosition, setXyPosition] = useState(8);
   // TODO: put button on @babylonjs/gui full screen
-  const { name } = useControls({ name: "Tony" });
+  const { color } = useControls({ color: "#ffff00" });
 
   return (
     <div>
-      <button onClick={() => setXyPosition(xyPosition === 10 ? 6 : 10)}>
-        zoom
-      </button>
       <SceneComponent
         antialias
         onSceneReady={onSceneReady}
@@ -49,7 +45,7 @@ export default () => {
         renderChildrenWhenReady
       >
         <MyCamera radius={3} />
-        <Sphere />
+        <Sphere color={color} />
       </SceneComponent>
     </div>
   );
