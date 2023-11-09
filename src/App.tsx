@@ -6,6 +6,7 @@ import {
   MeshBuilder,
   Color3,
 } from "@babylonjs/core";
+import { useControls } from "leva";
 
 import SceneComponent from "babylonjs-hook";
 import "./css/editorStyles.css";
@@ -34,6 +35,8 @@ const onSceneReady = (scene: Scene) => {
 export default () => {
   const [xyPosition, setXyPosition] = useState(8);
   // TODO: put button on @babylonjs/gui full screen
+  const { name } = useControls({ name: "Tony" });
+
   return (
     <div>
       <button onClick={() => setXyPosition(xyPosition === 10 ? 6 : 10)}>
