@@ -6,6 +6,7 @@ import {
   MeshBuilder,
   Color3,
 } from "@babylonjs/core";
+import * as BABYLON from "@babylonjs/core";
 import { useControls } from "leva";
 
 import SceneComponent from "babylonjs-hook";
@@ -22,19 +23,24 @@ const onSceneReady = (scene: Scene) => {
 
   // Default intensity is 1. Let's dim the light a small amount
   light.intensity = 0.7;
+  scene.clearColor = BABYLON.Color3.Black();
 
-  // Our built-in 'ground' shape.
-  // const ground = MeshBuilder.CreateGround(
-  //   "ground",
-  //   { width: GROUND_SIZE, height: GROUND_SIZE },
-  //   scene
-  // );
-  // ground.position.y = -0.75;
+  scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(
+    "./textures/environment.dds",
+    scene
+  );
+
+  scene.createDefaultSkybox(scene.environmentTexture);
 };
 
 export default () => {
   // TODO: put button on @babylonjs/gui full screen
-  const { color } = useControls({ color: "#ffff00" });
+  const { tint, ior, metallic, roughness } = useControls({
+    tint: "#ffff00",
+    ior: { value: 1.5, min: 0, max: 5, step: 0.1 },
+    metallic: { value: 0, min: 0, max: 1, step: 0.1 },
+    roughness: { value: 0, min: 0, max: 1, step: 0.1 },
+  });
 
   return (
     <div>
@@ -45,7 +51,12 @@ export default () => {
         renderChildrenWhenReady
       >
         <MyCamera radius={3} />
-        <Sphere color={color} />
+        <Sphere
+          tint={tint}
+          ior={ior}
+          metallic={metallic}
+          roughness={roughness}
+        />
       </SceneComponent>
     </div>
   );
