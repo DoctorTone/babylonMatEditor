@@ -1,11 +1,4 @@
-import React, { Suspense, useState } from "react";
-import {
-  Scene,
-  Vector3,
-  HemisphericLight,
-  MeshBuilder,
-  Color3,
-} from "@babylonjs/core";
+import { Scene, Vector3, HemisphericLight } from "@babylonjs/core";
 import * as BABYLON from "@babylonjs/core";
 import { useControls } from "leva";
 
@@ -23,7 +16,7 @@ const onSceneReady = (scene: Scene) => {
 
   // Default intensity is 1. Let's dim the light a small amount
   light.intensity = 0.7;
-  scene.clearColor = BABYLON.Color3.Black();
+  scene.clearColor.set(0, 0, 0, 1);
 
   scene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData(
     "./textures/environment.dds",

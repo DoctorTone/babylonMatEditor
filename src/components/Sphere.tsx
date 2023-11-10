@@ -1,14 +1,6 @@
-import {
-  Color3,
-  Mesh,
-  MeshBuilder,
-  Nullable,
-  StandardMaterial,
-  PBRMaterial,
-  Vector3,
-} from "@babylonjs/core";
-import { useBeforeRender, useScene } from "babylonjs-hook";
-import React, { useRef, useEffect } from "react";
+import { Color3, Mesh, MeshBuilder, PBRMaterial } from "@babylonjs/core";
+import { useScene } from "babylonjs-hook";
+import React, { useEffect } from "react";
 
 type SphereProps = {
   tint: string;
