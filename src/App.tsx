@@ -1,6 +1,6 @@
 import { Scene, Vector3, HemisphericLight } from "@babylonjs/core";
 import * as BABYLON from "@babylonjs/core";
-import { useControls } from "leva";
+import { useControls, folder } from "leva";
 
 import SceneComponent from "babylonjs-hook";
 import "./css/editorStyles.css";
@@ -28,11 +28,32 @@ const onSceneReady = (scene: Scene) => {
 
 export default () => {
   // TODO: put button on @babylonjs/gui full screen
-  const { tint, ior, metallic, roughness } = useControls({
-    tint: "#ffff00",
+  const {
+    color,
+    EnvIntensity,
+    tint,
+    ior,
+    metallic,
+    roughness,
+    opacity,
+    subSurface,
+    refract,
+    Refraction,
+    Translucent,
+  } = useControls({
+    color: "#ffffff",
+    EnvIntensity: { value: 0.5, min: 0, max: 4, step: 0.1 },
     ior: { value: 1.5, min: 0, max: 5, step: 0.1 },
     metallic: { value: 0, min: 0, max: 1, step: 0.1 },
     roughness: { value: 0, min: 0, max: 1, step: 0.1 },
+    opacity: { value: 1, min: 0, max: 1, step: 0.1 },
+    subSurface: false,
+    SubSurface: folder({
+      tint: "#ffff00",
+      Refraction: true,
+      Translucent: false,
+      refract: { value: 1.5, min: 0, max: 5, step: 0.1 },
+    }),
   });
 
   return (
@@ -45,10 +66,17 @@ export default () => {
       >
         <MyCamera radius={3} />
         <Sphere
+          color={color}
+          EnvIntensity={EnvIntensity}
           tint={tint}
           ior={ior}
           metallic={metallic}
           roughness={roughness}
+          opacity={opacity}
+          subSurface={subSurface}
+          refract={refract}
+          Refraction={Refraction}
+          Translucent={Translucent}
         />
       </SceneComponent>
     </div>

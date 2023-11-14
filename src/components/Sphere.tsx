@@ -3,10 +3,17 @@ import { useScene } from "babylonjs-hook";
 import React, { useEffect } from "react";
 
 type SphereProps = {
+  color: string;
   tint: string;
+  EnvIntensity: number;
   ior: number;
   metallic: number;
   roughness: number;
+  opacity: number;
+  subSurface: boolean;
+  refract: number;
+  Refraction: boolean;
+  Translucent: boolean;
 };
 
 export const Sphere: React.FC<SphereProps> = (props) => {
@@ -23,12 +30,19 @@ export const Sphere: React.FC<SphereProps> = (props) => {
       const sphereMat = new PBRMaterial("sphereMat", scene);
       sphere.material = sphereMat;
 
+      sphereMat.albedoColor = Color3.FromHexString(props.color);
       sphereMat.metallic = props.metallic;
       sphereMat.roughness = props.roughness;
+      sphereMat.alpha = props.opacity;
+      sphereMat.indexOfRefraction = props.ior;
+      sphereMat.environmentIntensity = props.EnvIntensity;
 
-      sphereMat.subSurface.isRefractionEnabled = true;
-      sphereMat.subSurface.indexOfRefraction = props.ior;
-      sphereMat.subSurface.tintColor = Color3.FromHexString(props.tint);
+      if (props.subSurface) {
+        sphereMat.subSurface.isRefractionEnabled = props.Refraction;
+        sphereMat.subSurface.isTranslucencyEnabled = props.Translucent;
+        sphereMat.subSurface.indexOfRefraction = props.refract;
+        sphereMat.subSurface.tintColor = Color3.FromHexString(props.tint);
+      }
 
       return () => {
         sphere?.dispose();
