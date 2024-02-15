@@ -1,4 +1,6 @@
-import { Scene, Vector3, HemisphericLight } from "@babylonjs/core";
+import { Scene } from "@babylonjs/core/scene";
+import { HemisphericLight } from "@babylonjs/core/Lights";
+import { Vector3 } from "@babylonjs/core/Maths/math";
 import { CubeTexture } from "@babylonjs/core/Materials/Textures/cubeTexture";
 import { useControls, folder } from "leva";
 
@@ -6,15 +8,11 @@ import SceneComponent from "babylonjs-hook";
 import "./css/editorStyles.css";
 import { MyCamera } from "./MyCamera";
 import { Sphere } from "./components/Sphere";
-// This takes up a lot
-// import { Inspector } from "@babylonjs/inspector";
 
 /**
  * Called once when the scene is ready.
  */
 const onSceneReady = (scene: Scene) => {
-  // Inspector.Show(scene, { embedMode: false });
-
   // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
   var light = new HemisphericLight("light", new Vector3(0, 1, 0), scene);
 
@@ -31,7 +29,6 @@ const onSceneReady = (scene: Scene) => {
 };
 
 export default () => {
-  // TODO: put button on @babylonjs/gui full screen
   const {
     color,
     EnvIntensity,
