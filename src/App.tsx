@@ -6,6 +6,7 @@ import SceneComponent from "babylonjs-hook";
 import "./css/editorStyles.css";
 import { MyCamera } from "./MyCamera";
 import { Sphere } from "./components/Sphere";
+// Not sure about this
 // import { Inspector } from "@babylonjs/inspector";
 
 /**
